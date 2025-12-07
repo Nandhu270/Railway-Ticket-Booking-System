@@ -4,16 +4,15 @@ import com.Administrator.Administrator;
 import model.Booking;
 import model.Train;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClerkPage {
 
-    private static Scanner input = new Scanner(System.in);
-    public static Administrator adm = new Administrator();
+    private Scanner input = new Scanner(System.in);
+    public Administrator adm = new Administrator();
 
-    private static int showAccess(){
+    private int showAccess(){
         System.out.println("1.Book a Ticket");
         System.out.println("2.Update Booking");
         System.out.println("3.Cancel Booking");
@@ -23,7 +22,7 @@ public class ClerkPage {
         return  choice;
     }
 
-    private static void invoice(Train t, int u_seat,String name, String cls_type){
+    private void invoice(Train t, int u_seat,String name, String cls_type){
         System.out.println("\n---------------INVOICE---------------");
         System.out.println("Name: "+name);
         System.out.println("Train No: "+t.getTrain_No());
@@ -35,7 +34,7 @@ public class ClerkPage {
         System.out.println("Thank You!...Visit Again!...\n");
     }
 
-    private static void bookTicket(){
+    private void bookTicket(){
         input.nextLine();
         System.out.print("Enter Your Name: ");
         String name = input.nextLine();
@@ -72,7 +71,7 @@ public class ClerkPage {
         }else System.out.println("Train Not Found!...");
     }
 
-    private static void updateBook(){
+    private void updateBook(){
         input.nextLine();
         System.out.print("Enter Your Name: ");
         String name = input.nextLine();
@@ -115,7 +114,7 @@ public class ClerkPage {
         invoice(t,requestedSeats,name,class_type);
     }
 
-    private static void cancelBook(){
+    private void cancelBook(){
         input.nextLine();
         System.out.print("Enter your Name to cancel Ticket: ");
         String name = input.nextLine().toLowerCase().trim();
@@ -130,6 +129,7 @@ public class ClerkPage {
         if(b!=null){
             Train t = trains.stream().filter(train -> train.getTrain_No()==b.getTrain_No()).findFirst().orElse(null);
             t.setSeats(t.getSeats() + b.getSeats());
+            adm.addArchivedBooking(b);
             boolean removed = books.remove(b);
             if(removed) System.out.println("Booking Deleted Successfully!...");
             else  System.out.println("Failed to delete booking from list!...");

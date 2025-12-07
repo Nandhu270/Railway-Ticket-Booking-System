@@ -4,11 +4,13 @@ public class User {
     private String u_Name;
     private String name;
     private String password;
+    private String ph_Number;
 
-    public User(String u_Name,String name, String password) {
+    public User(String u_Name,String name, String password, String ph_Number) {
         this.u_Name = u_Name;
         this.name = name;
         this.password = password;
+        this.ph_Number = ph_Number;
     }
 
     public String getU_Name() {
@@ -35,12 +37,21 @@ public class User {
         this.name = name;
     }
 
+    public String getPh_Number() {
+        return ph_Number;
+    }
+
+    public void setPh_Number(String ph_Number) {
+        this.ph_Number = ph_Number;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "u_Name='" + u_Name + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", ph_Number='" + ph_Number + '\'' +
                 '}';
     }
 }

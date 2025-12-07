@@ -3,6 +3,7 @@ package com.view;
 import com.Administrator.Administrator;
 import model.Booking;
 import model.Train;
+import model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class AdminPage {
-    private static Scanner input = new Scanner(System.in);
-    private static Administrator adm = new Administrator();
+    private Scanner input = new Scanner(System.in);
+    private Administrator adm = new Administrator();
 
     private int ShowAccess(){
         System.out.println("1. Add train details");
@@ -23,7 +24,8 @@ public class AdminPage {
         System.out.println("7. View bookings within a date range");
         System.out.println("8. Update train details");
         System.out.println("9. Delete train details");
-        System.out.println("10. Exit");
+        System.out.println("10. View All User");
+        System.out.println("11. Exit");
         System.out.print("Enter Your Choice: ");
         int Choice = input.nextInt();
         return Choice;
@@ -211,6 +213,20 @@ public class AdminPage {
         else System.out.println("Train Not Found!...\n");
     }
 
+    private void viewAllUser(){
+        ArrayList<User> users = adm.getUsers();
+        try{
+            Thread.sleep(1000);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("User_Name\tName\tPhone Number");
+        for (User i : users){
+            System.out.println(i.getU_Name()+"\t"+i.getName()+"\t"+i.getPh_Number());
+        }
+        System.out.println();
+    }
+
     public void Administration(){
         int choice;
         do{
@@ -225,7 +241,8 @@ public class AdminPage {
                 case 7: filterByDateRange();break;
                 case 8: updateTrain();break;
                 case 9: deleteTrain();break;
+                case 10: viewAllUser();break;
             }
-        }while (choice<10);
+        }while (choice<11);
     }
 }

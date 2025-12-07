@@ -10,6 +10,8 @@ public class Administrator {
     private static ArrayList<Train> trains = new ArrayList<>();
     private static ArrayList<Booking> bookings = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
+    private static ArrayList<Booking> archivedBookings = new ArrayList<>();
+    private static String loggedUser = "";
 
     public ArrayList<Train> getTrains() {
         return trains;
@@ -24,14 +26,30 @@ public class Administrator {
     }
 
     public void addBooking(Booking bookings) {
-        this.getBookings().add(bookings);
+        this.bookings.add(bookings);
     }
 
     public void addUsers(User user){
         this.users.add(user);
     }
 
-    public static ArrayList<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return users;
+    }
+
+    public void addArchivedBooking(Booking book){
+        this.archivedBookings.add(book);
+    }
+
+    public ArrayList<Booking> getArchivedBooking(){
+        return archivedBookings;
+    }
+
+    public void setLoggedUser(String loggedUser) {
+        Administrator.loggedUser = loggedUser;
+    }
+
+    public String getLoggedUser() {
+        return loggedUser;
     }
 }
