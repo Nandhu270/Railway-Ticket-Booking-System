@@ -226,6 +226,6 @@ public class AdminPage {
                 case 8: updateTrain();break;
                 case 9: deleteTrain();break;
             }
-        }while (choice<9);
+        }while (choice<10);
     }
 }

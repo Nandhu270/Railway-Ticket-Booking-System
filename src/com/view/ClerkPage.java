@@ -4,6 +4,7 @@ import com.Administrator.Administrator;
 import model.Booking;
 import model.Train;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -64,6 +65,8 @@ public class ClerkPage {
                 return;
             }
             t.setSeats(seat-seats);
+            Booking book = new Booking(name, train_no, seats, date, class_type);
+            adm.addBooking(book);
             System.out.println("Ticket Booked SuccessFully!....");
             invoice(t,seats,name,class_type);
         }else System.out.println("Train Not Found!...");
@@ -117,14 +120,22 @@ public class ClerkPage {
         System.out.print("Enter your Name to cancel Ticket: ");
         String name = input.nextLine().toLowerCase().trim();
         ArrayList<Booking> books = adm.getBookings();
-        boolean removed = books.removeIf(book -> book.getName().toLowerCase().trim().equals(name));
+        ArrayList<Train> trains = adm.getTrains();
+        Booking b = books.stream().filter(booking -> booking.getName().equalsIgnoreCase(name.trim())).findFirst().orElse(null);
         try {
             Thread.sleep(1000);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        if(removed) System.out.println("Booking Deleted Successfully!...");
-        else System.out.println("Booking Not Found in this Name!...");
+        if(b!=null){
+            Train t = trains.stream().filter(train -> train.getTrain_No()==b.getTrain_No()).findFirst().orElse(null);
+            t.setSeats(t.getSeats() + b.getSeats());
+            boolean removed = books.remove(b);
+            if(removed) System.out.println("Booking Deleted Successfully!...");
+            else  System.out.println("Failed to delete booking from list!...");
+        }else{
+            System.out.println("Booking Not Found in this Name!...");
+        }
     }
 
     public void Administrator(){
