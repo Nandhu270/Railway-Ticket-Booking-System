@@ -1,6 +1,7 @@
 package com.view;
 
 import com.Administrator.Administrator;
+import model.Booking;
 import model.Train;
 import model.User;
 
@@ -88,7 +89,45 @@ public class UserPage {
     }
 
     private void viewPersonalBooking(){
+        String user = getloggedUser();
+        ArrayList<User> users = adm.getUsers();
+        User u_name = users.stream().filter(u->u.getU_Name().equals(user)).findFirst().orElse(null);
+        if(u_name==null){
+            System.out.println("User Not Found!...");
+            return;
+        }
+        String name = u_name.getName();
+        ArrayList<Booking> bookings = adm.getBookings();
+        ArrayList<Booking> archived = adm.getArchivedBooking();
+        ArrayList<Booking> personalBook = bookings.stream().filter(booking -> booking.getName().equals(name)).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Booking> archivedBook = archived.stream().filter(arch -> arch.getName().equals(name)).collect(Collectors.toCollection(ArrayList::new));
 
+        try{
+            Thread.sleep(1000);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        if(personalBook.isEmpty()){
+            System.out.println("\nNo Personal Booking Found!....");
+        }else{
+            System.out.println("\nCurrent Bookings: ");
+            System.out.println("\nName\tTrain No\tSeats Booked\tDate\tClassType");
+            for(Booking i : personalBook){
+                System.out.println(i.getName()+"\t"+i.getTrain_No()+"\t"+i.getSeats()+"\t"+i.getDate()+"\t"+i.getClassType());
+            }
+            System.out.println();
+        }
+        if(archivedBook.isEmpty()){
+            System.out.println("\nNo Archived Booking Found!....\n");
+        }else{
+            System.out.println("\nArchived Bookings: ");
+            System.out.println("\nName\tTrain No\tSeats Booked\tDate\tClassType");
+            for(Booking i : archivedBook){
+                System.out.println(i.getName()+"\t"+i.getTrain_No()+"\t"+i.getSeats()+"\t"+i.getDate()+"\t"+i.getClassType());
+            }
+            System.out.println();
+        }
     }
 
     public void Administrator(){

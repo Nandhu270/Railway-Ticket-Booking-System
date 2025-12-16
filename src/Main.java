@@ -140,6 +140,13 @@ public class Main{
         adm.addUsers(new User("Siva", "siva_s", "siv@321", "9008007006"));
 
 
+        adm.addArchivedBooking(new Booking("Nandha", "101", 5,  "2023-11-13", "A"));
+        adm.addArchivedBooking(new Booking("Nandha", "103", 5,  "2023-10-13", "A"));
+        adm.addArchivedBooking(new Booking("Nandha", "104", 5,  "2023-12-13", "A"));
+        adm.addArchivedBooking(new Booking("Nandha", "105", 5,  "2022-11-13", "A"));
+        adm.addArchivedBooking(new Booking("Nandha", "106", 5,  "2022-11-13", "A"));
+        adm.addArchivedBooking(new Booking("Nandha", "107", 5,  "2022-1-13", "A"));
+
         System.out.println("Welcome Railway to Railway Ticket Booking Console!......");
         boolean flg = true;
         while(flg){
